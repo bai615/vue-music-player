@@ -51,6 +51,7 @@
 
 <script>
 import Progress from './Progress'
+import 'jplayer'
 
 export default {
   name: 'Player',
@@ -68,17 +69,22 @@ export default {
   props: ['currentMusicItem'],
   methods: {
     changeVolumeHandler (progress) {
-      // $('#player').jPlayer('volume', progress);
+      $('#player').jPlayer('volume', progress)
+    },
+    progressChangeHandler (progress) {
+      // console.log('total :', this.state.duration);
+      // console.log('from root widget', progress);
+      $('#player').jPlayer('play', this.duration * progress)
     },
     play () {
       console.log('PLAY')
-      // if(this.state.isPlay){
-      //   $('#player').jPlayer('pause');
-      // }else{
-      //   $('#player').jPlayer('play');
-      // }
-      //
-      // this.state.isPlay = !this.state.isPlay;
+      if (this.isPlay) {
+        $('#player').jPlayer('pause')
+      } else {
+        $('#player').jPlayer('play')
+      }
+
+      this.isPlay = !this.isPlay
     },
     playPrev () {
       console.log('PLAY_PREV')

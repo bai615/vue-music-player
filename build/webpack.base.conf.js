@@ -1,4 +1,5 @@
 'use strict'
+var webpack = require('webpack')
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
@@ -36,6 +37,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'jquery': 'jquery',
+      '$': 'jquery',
     }
   },
   module: {
@@ -88,5 +91,13 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      //jquery: "jquery",
+      //"window.jQuery": "jquery",
+    })
+  ]
 }
