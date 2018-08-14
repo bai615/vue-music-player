@@ -66,6 +66,17 @@ export default {
       leftTime: ''
     }
   },
+  beforeMount () {
+    $('#player').bind($.jPlayer.event.timeupdate, (e) => {
+      this.duration = e.jPlayer.status.duration
+      this.volume = e.jPlayer.options.volume * 100
+      this.progress = e.jPlayer.status.currentPercentAbsolute
+      this.leftTime = this.formatTime(this.duration * (1 - e.jPlayer.status.currentPercentAbsolute / 100))
+    })
+  },
+  created: function () {
+    $('#player').unbind($.jPlayer.event.timeupdate)
+  },
   props: ['currentMusicItem'],
   methods: {
     changeVolumeHandler (progress) {
@@ -96,6 +107,14 @@ export default {
       console.log('PLAY_NEXT')
       // PubSub.publish('PLAY_NEXT');
       // this.state.isPlay = true;
+    },
+    formatTime (time) {
+      time = Math.floor(time)
+      let miniutes = Math.floor(time / 60)
+      let seconds = Math.floor(time % 60)
+
+      seconds = seconds < 10 ? `0${seconds}` : seconds
+      return `${miniutes}:${seconds}`
     }
   },
   components: {Progress}

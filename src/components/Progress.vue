@@ -1,7 +1,7 @@
 <template>
   <div class="component-progress" ref="progressBar" @lick="changeProgress()">
     <div class="progress"
-         v-bind:style="{width: progress, background: barColor}"
+         v-bind:style="{width: progress + '%', background: barColor}"
          ></div>
   </div>
 </template>
