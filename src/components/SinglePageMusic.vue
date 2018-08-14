@@ -2,23 +2,27 @@
 <div>
   <Header></Header>
   <Player v-bind={currentMusicItem}></Player>
+  <MusicList
+    v-bind={currentMusicItem}
+    v-bind:musicList='musicList'
+  ></MusicList>
 </div>
 </template>
 
 <script>
 import Header from './Header'
-import {MUSIC_LIST} from './musiclist'
+import {MUSIC_DATA} from './musicdata'
 import Player from './Player'
+import MusicList from './MusicList'
 // import PubSub from 'pubsub-js'
-// import jPlayer from 'jplayer'
 import 'jplayer'
 
 export default {
   name: 'SinglePageMusic',
   data () {
     return {
-      musicList: MUSIC_LIST, // 播放列表
-      currentMusicItem: MUSIC_LIST[0], // 当前播放
+      musicList: MUSIC_DATA, // 播放列表
+      currentMusicItem: MUSIC_DATA[0], // 当前播放
       volume: 0, // 初始化音量数据
       progress: 0, // 初始化进度条数据
       duration: null, // 音频总时间
@@ -39,7 +43,7 @@ export default {
     // 播放歌曲
     this.playMusic(this.currentMusicItem)
   },
-  components: {Header, Player},
+  components: {Header, Player, MusicList},
   methods: {
     playMusic (musicItem) {
       $('#player').jPlayer('setMedia', {
