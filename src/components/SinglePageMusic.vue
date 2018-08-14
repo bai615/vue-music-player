@@ -54,6 +54,16 @@ export default {
         return item !== musicItem
       })
     })
+
+    // 订阅播放上一曲事件
+    PubSub.subscribe('PLAY_PREV', () => {
+      this.playNext('prev')
+    })
+
+    // 订阅播放下一曲事件
+    PubSub.subscribe('PLAY_NEXT', () => {
+      this.playNext()
+    })
   },
   components: {Header, Player, MusicList},
   methods: {
@@ -68,6 +78,20 @@ export default {
       // console.log('total :', this.state.duration);
       // console.log('from root widget', progress);
       $('#player').jPlayer('play', this.duration * progress)
+    },
+    playNext (type = 'next') {
+      let index = this.findMusicIndex(this.currentMusicItem)
+      let newIndex = null
+      let musicListLength = this.musicList.length
+      if (type === 'next') {
+        newIndex = (index + 1) % musicListLength
+      } else {
+        newIndex = (index - 1 + musicListLength) % musicListLength
+      }
+      this.playMusic(this.musicList[newIndex])
+    },
+    findMusicIndex (musicItem) {
+      return this.musicList.indexOf(musicItem)
     }
   }
 }

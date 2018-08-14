@@ -52,6 +52,7 @@
 <script>
 import Progress from './Progress'
 import 'jplayer'
+import PubSub from 'pubsub-js'
 
 export default {
   name: 'Player',
@@ -100,13 +101,13 @@ export default {
     },
     playPrev () {
       console.log('PLAY_PREV')
-      // PubSub.publish('PLAY_PREV');
-      // this.state.isPlay = true;
+      PubSub.publish('PLAY_PREV')
+      this.isPlay = true
     },
     playNext () {
       console.log('PLAY_NEXT')
-      // PubSub.publish('PLAY_NEXT');
-      // this.state.isPlay = true;
+      PubSub.publish('PLAY_NEXT')
+      this.isPlay = true
     },
     formatTime (time) {
       time = Math.floor(time)
