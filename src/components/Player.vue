@@ -77,10 +77,11 @@ export default {
       $('#player').jPlayer('play', this.duration * progress)
     },
     play () {
-      console.log('PLAY')
       if (this.isPlay) {
+        console.log('pause')
         $('#player').jPlayer('pause')
       } else {
+        console.log('play')
         $('#player').jPlayer('play')
       }
 
