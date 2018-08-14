@@ -76,12 +76,13 @@ export default {
     })
   },
   created: function () {
-    $('#player').unbind($.jPlayer.event.timeupdate)
-
     // 订阅音乐播放事件
     PubSub.subscribe('PLAY_MUSIC', (msg, musicItem) => {
       this.isPlay = true
     })
+  },
+  destroyed () {
+    $('#player').unbind($.jPlayer.event.timeupdate)
   },
   props: ['currentMusicItem'],
   methods: {
