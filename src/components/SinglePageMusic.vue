@@ -65,6 +65,18 @@ export default {
       this.playNext()
     })
   },
+  destroyed () {
+    // 解绑删除音乐订阅
+    PubSub.unsubscribe('DELETE_MUSIC')
+    // 解绑播放音乐订阅
+    PubSub.unsubscribe('PLAY_MUSIC')
+    // 解绑音乐播放结束监听
+    $('#player').unbind($.jPlayer.event.ended)
+    // 解绑播放上一曲订阅
+    PubSub.unsubscribe('PLAY_PREV')
+    // 解绑播放下一曲订阅
+    PubSub.unsubscribe('PLAY_NEXT')
+  },
   components: {Header, Player, MusicList},
   methods: {
     playMusic (musicItem) {
