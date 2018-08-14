@@ -31,8 +31,7 @@ export default {
     }
   },
   created: function () {
-    // `this` 指向 vm 实例
-    console.log('a is: ' + this.a)
+    console.log('created')
 
     // 初始化jPlayer配置
     $('#player').jPlayer({
@@ -42,6 +41,13 @@ export default {
 
     // 播放歌曲
     this.playMusic(this.currentMusicItem)
+
+    // 监听音乐播放完毕
+    $('#player').bind($.jPlayer.event.ended, (e) => {
+      console.log('play end')
+      // 播放下一曲
+      this.playNext()
+    })
 
     // 订阅音乐播放事件
     PubSub.subscribe('PLAY_MUSIC', (msg, musicItem) => {
@@ -66,6 +72,7 @@ export default {
     })
   },
   destroyed () {
+    console.log('destroyed')
     // 解绑删除音乐订阅
     PubSub.unsubscribe('DELETE_MUSIC')
     // 解绑播放音乐订阅
