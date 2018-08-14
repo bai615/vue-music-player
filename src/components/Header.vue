@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .component-header {
     box-sizing: border-box;
     padding: 15px 25px;

@@ -34,15 +34,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   .component-progress {
     margin-top: 20px;
     width: 100%;
     height: 5px;
     background: #ddd;
     cursor: pointer;
-  }
-  .progress {
-    height: 5px;
+
+    .progress {
+      height: 5px;
+    }
   }
 </style>
