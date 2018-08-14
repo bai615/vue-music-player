@@ -14,7 +14,7 @@ import Header from './Header'
 import {MUSIC_DATA} from './musicdata'
 import Player from './Player'
 import MusicList from './MusicList'
-// import PubSub from 'pubsub-js'
+import PubSub from 'pubsub-js'
 import 'jplayer'
 
 export default {
@@ -42,6 +42,18 @@ export default {
 
     // 播放歌曲
     this.playMusic(this.currentMusicItem)
+
+    // 订阅音乐播放事件
+    PubSub.subscribe('PLAY_MUSIC', (msg, musicItem) => {
+      this.playMusic(musicItem)
+    })
+
+    // 订阅音乐删除事件
+    PubSub.subscribe('DELETE_MUSIC', (msg, musicItem) => {
+      this.musicList = this.musicList.filter(item => {
+        return item !== musicItem
+      })
+    })
   },
   components: {Header, Player, MusicList},
   methods: {
