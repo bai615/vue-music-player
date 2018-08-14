@@ -1,5 +1,5 @@
 <template>
-  <div class="component-progress" ref="progressBar" @lick="changeProgress()">
+  <div class="component-progress" ref="progressBar" v-on:click='changeProgress'>
     <div class="progress"
          v-bind:style="{width: progress + '%', background: barColor}"
          ></div>
@@ -7,17 +7,28 @@
 </template>
 
 <script>
+import 'jplayer'
+
 export default {
   name: 'Progress',
-  props: ['progress', 'barColor'],
+  // props: ['progress', 'barColor'],
+  props: {
+    progress: Number,
+    barColor: String,
+    onProgressChange: {}
+  },
   methods: {
-    changeProgress (e) {
-      // console.log(e.clientX);
-      // console.log(this.refs.progressBar);
-      let progressBar = this.refs.progressBar
+    changeProgress: function (e) {
+      console.log('changeProgress')
+      // console.log(e)
+      // console.log(e.clientX)
+      // console.log(this.$refs.progressBar)
+      let progressBar = this.$refs.progressBar
+      // console.log(progressBar.getBoundingClientRect().left)
+      // console.log(progressBar.clientWidth)
       let progress = (e.clientX - progressBar.getBoundingClientRect().left) / progressBar.clientWidth
-      // console.log(progress);
-      this.props.onProgressChange && this.props.onProgressChange(progress)
+      // console.log(progress)
+      this.onProgressChange && this.onProgressChange(progress)
     }
   }
 }

@@ -17,7 +17,7 @@
               <!-- 音量控制部分 -->
               <Progress
                 v-bind={progress:volume}
-                v-bind:onProgressChange={changeVolumeHandler}
+                :onProgressChange='changeVolumeHandler'
                 v-bind:barColor="volumeBarColor"
               ></Progress>
             </div>
@@ -27,7 +27,7 @@
           <!-- 播放进度部分 -->
           <Progress
             v-bind={progress}
-            v-bind:onProgressChange={progressChangeHandler}
+            :onProgressChange='progressChangeHandler'
             v-bind:barColor="progressBarColor"
           ></Progress>
         </div>
